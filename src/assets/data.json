@@ -1,0 +1,29 @@
+[
+  {
+    "aks": "65NT_MET51_B870_M00",
+    "id": "-LMwSBnGaVIaoPUCbIY5",
+    "name": "Aussentemperatur",
+    "numericId": "40180201",
+    "timestamp": "1",
+    "unit": "°C        ",
+    "value": 1
+  },
+  {
+    "aks": "65NT_MET51_B870_M08",
+    "id": "-LMwSBnh3kxDZFkj4tVd",
+    "name": "Globalstrahlung",
+    "numericId": "3200008",
+    "timestamp": "1",
+    "unit": "W/m^2     ",
+    "value": 1
+  },
+  {
+    "aks": "65NT_MET51_B870_M07",
+    "id": "-LOYEFkF3WiVi5cb5vd6",
+    "name": "Niederschlagsstatus",
+    "numericId": "3200007",
+    "timestamp": "1",
+    "unit": "-         ",
+    "value": 1
+  }
+]
