@@ -1,0 +1,45 @@
+<a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
+  <!-- <a-scene embedded artoolkit='sourceType: webcam;'> -->
+  <!-- define a marker -->
+  <a-marker preset='hiro'>
+    <!-- define the object which gonna be put on this marker  -->
+    <a-sphere
+      src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/space/earth_atmos_4096.jpg"
+      radius="0.5" segments-height="53" position="1.5 -1 -1">
+      <a-animation attribute="rotation" easing="linear" dur="10000" to="0 360 0" repeat="indefinite">
+
+      </a-animation>
+    </a-sphere>
+
+<a-entity *ngIf="isloading">
+  <a-image src="http://localhost:4200/assets/picture/nest1.jpg" width="4" height="3" rotation="-90 00 0"
+           position="0 0.3 0.0" ></a-image>
+    <a-text    color="white" align="right" baseline="center" [attr.value]=" 'Code: '+actualQRCode" rotation="-90 00 0"
+            position="0 0.8 0.0"
+            font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-text>
+    <a-text color="white" align="right" baseline="center"
+            [attr.value]=" load[0].aks+': '+load[0].value+': '+ load[0].unit " rotation="-90 00 0"
+            position="1.5 0.8 0.3"
+            font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-text>
+    <a-text color="white" align="right" baseline="center"
+            [attr.value]=" load[1].aks+': '+load[1].value+':!!!! '+ load[1].unit " rotation="-90 00 0"
+            position="1.5 0.8 0.6"
+            font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-text>
+    <a-text color="white" align="right" baseline="center"
+            [attr.value]=" load[2].aks+': '+load[2].value+': '+ load[2].unit " rotation="-90 00 0"
+            position="1.5 0.8 0.9"
+            font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-text>
+    <a-text color="white" align="right" baseline="center"
+            [attr.value]=" load[2].aks+': '+load[2].value+': '+ load[2].unit " rotation="-90 00 0"
+            position="1.5 0.8 1.2"
+            font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-text>
+</a-entity>
+  </a-marker>
+  <!-- define a simple camera -->
+  <a-entity camera></a-entity>
+</a-scene>
+
+<div class="backButton">
+  <button id="backButton" (click)="goHomeAndReload()">back</button>
+</div>
+<h1 *ngIf="isloading" class="backButton">{{actualQRCode}} {{isloading}}</h1>

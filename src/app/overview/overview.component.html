@@ -1,0 +1,29 @@
+<form class="form-inline">
+  <input class="form-control" name="searchInput" placeholder="search" #searchInput="ngModel" [(ngModel)]="searchText"
+         style="width: 800px;">
+  <button class="btn btn-outline-primary" (click)="searchText=''">X</button>
+</form>
+
+<table class="table table-sm">
+  <thead>
+  <th>key</th>
+  <th>Full Name</th>
+  <th>mobile</th>
+  <th>email</th>
+  </thead>
+  <ng-container *ngFor="let detail of overviewArray">
+    <tr class="table-dark" *ngIf="filterCondition(detail)">
+      <td>{{detail.$key}}</td>
+      <td>{{detail.fullName}}</td>
+      <td>{{detail.mobile}}</td>
+      <td>{{detail.email}}</td>
+      <td>
+        <button class="btn btn-outline-info" (click)="firebaseservice.edit(detail)">EDIT</button>
+        <button class="btn btn-outline-danger" (click)="onDelete(detail.$key)">DELETE</button>
+      </td>
+    </tr>
+  </ng-container>
+</table>
+<div class="alert alert-danger" *ngIf="showDeleteMessage">
+  Deleted successfully!
+</div>

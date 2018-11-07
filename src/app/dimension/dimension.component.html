@@ -1,0 +1,52 @@
+<div class="content">
+  <div class="row">
+    <div class="col-md-10">
+      <form class="form-inline">
+        <input class="form-control" name="searchInput" placeholder="search" #searchInput="ngModel"
+               [(ngModel)]="searchText"
+               style="width: 800px;">
+        <button class="btn btn-outline-primary" (click)="searchText=''">X</button>
+      </form>
+
+      <table class="table ">
+        <thead>
+        <th>_NUMERICID</th>
+        <th>AKS</th>
+        <th>ProductType</th>
+        <th>TypeOfSignal</th>
+        <th>Description</th>
+        <th>unit</th>
+        <th>select</th>
+        </thead>
+
+          <ng-container *ngFor="let dimension of DimensionArray">
+            <tr class="table-default" *ngIf="filterCondition(dimension)">
+              <td>{{dimension._NUMERICID}}</td>
+              <td>{{dimension.AKS_Code}}</td>
+              <td>{{dimension.Prodcut_Type}}</td>
+              <td>{{dimension.Datapoint_TypeOfSignal}}</td>
+              <td>{{dimension.Datapoint_SignalDescription}}</td>
+              <td>{{dimension.Datapoint_Unit}}</td>
+              <td>
+                <button class="btn btn-outline-info" (click)="rowSelected(dimension)">Select</button>
+              </td>
+
+            </tr>
+          </ng-container>
+      </table>
+      form {{this.firebaseservice.form.value|json}}
+  </div>
+  <div class="col-md-2">
+
+    <div class="alert alert-dismissible alert-success" *ngFor="let select of selectedDimension">
+      <button type="button" class="close" data-dismiss="alert" (click)="rowDisSelected(select)">&times;</button>
+      <strong>Well done!</strong> {{select.aks}}
+    </div>
+    <button class="btn btn-outline-info" (click)="addToForm()">ADD</button>
+  </div>
+
+
+</div>
+
+</div>
+
