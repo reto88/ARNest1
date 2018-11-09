@@ -1,0 +1,23 @@
+<div class="content">
+    <div class="row" >
+        <div class=".col-12 .col-sm-6 .col-lg-8"style="padding: 15px;border:2px solid red;background-color: white"  >
+            
+          <div class="row" style="padding: 15px;" >
+            <div class=" .col-12 .col-sm-6 .col-lg-8">
+                <qrcode [qrdata]="myQrCode" [size]="254" [level]="'M'"></qrcode>
+            </div>
+            <div class=" .col-12 .col-sm-6 .col-lg-8">
+                <img src="../assets/marker/hiro1.png" style="width:254px;height:254px;">
+            </div>
+          </div>
+          <p></p>
+          <p style="color:black"> {{myQrCode}}</p>
+        </div>
+      </div>
+      <div class="row">
+          <button class="btn btn-outline-info" (click)="printfunction()">Print</button>
+          <button class="btn btn-outline-info" [routerLink]="['/create']">BACK</button>
+      
+        </div>
+</div>
+

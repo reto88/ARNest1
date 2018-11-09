@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {FirebaseService} from '../services/firebase.service';
 import {LiveObjects} from '../services/object.interface';
 import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import { Router } from '../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-dimension',
@@ -13,13 +14,16 @@ export class DimensionComponent implements OnInit {
   selectedDimension: Array<LiveObjects> = [];
   liveObject: LiveObjects;
 
-  constructor(public firebaseservice: FirebaseService) {
+  constructor(public firebaseservice: FirebaseService, private router:Router) {
   }
 
   DimensionArray = [];
 
 
   ngOnInit() {
+    this.selectedDimension=[];
+    this.selectedDimension=this.firebaseservice.form.value["liveObjects"];
+   console.log('wdwdwd'+ JSON.stringify(this.firebaseservice.form.value["liveObjects"]));
     this.firebaseservice.getDimension().subscribe(
       data => {
         this.DimensionArray = data.map(item => {
@@ -38,15 +42,19 @@ export class DimensionComponent implements OnInit {
       return dimension.AKS_Code.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1;
     } else if (dimension.Prodcut_Type.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1) {
       return dimension.Prodcut_Type.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1;
+    }else if (dimension.Datapoint_SignalDescription.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1) {
+      return dimension.Prodcut_Type.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1;
     }
   }
 
   rowSelected(dimension: any) {
     this.liveObject = {
       aks: dimension.AKS_Code,
-      _numericId: dimension._NUMERICID,
+      numericId: dimension._NUMERICID.toString(),
       description: dimension.Datapoint_SignalDescription,
-      unit: dimension.Datapoint_Unit
+      unit: dimension.Datapoint_Unit,
+      value:-999,
+      timestamp:'-666'
     };
     //let allSelected = new Array();
     //  allSelected.push(this.selectedDimension.$key);
@@ -62,21 +70,30 @@ export class DimensionComponent implements OnInit {
   rowDisSelected(select: any) {
     const index = this.selectedDimension.indexOf(select);
     if (index > -1) {
-      this.selectedDimension.splice(index, 1);
+      this.selectedDimension.splice(index, 1); //entfernt, index
     }
     //  allSelected.push(this.selectedDimension.$key);
 
-    // allSelected.push(this.selectedDimension);
-    console.log('selected' + JSON.stringify(this.selectedDimension.length));
+    console.log('disselect'+this.selectedDimension);
+
   }
 
   addToForm() {
+    let liveobject;
     for (let i = 0; i < this.selectedDimension.length; i++) {
-      const liveobject = new FormGroup({
-        numericId: new FormControl(this.selectedDimension[i]._numericId),
-        aks: new FormControl(this.selectedDimension[i].aks)
+       liveobject = new FormGroup({
+        numericId:  new FormControl(this.selectedDimension[i].numericId),
+        aks: new FormControl(this.selectedDimension[i].aks),
+        unit: new FormControl(this.selectedDimension[i].unit),
+        description:new FormControl(this.selectedDimension[i].description),
+        value:new FormControl(this.selectedDimension[i].value),
+        timestamp:new FormControl(this.selectedDimension[i].timestamp),
       });
       (<FormArray> this.firebaseservice.form.controls['liveObjects']).push(liveobject);
     }
+    console.log('selected' + JSON.stringify(this.selectedDimension.length  )+ JSON.stringify(this.selectedDimension[0]));
+    this.router.navigate(['/create']);
+    
+  
   }
 }

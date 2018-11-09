@@ -1,5 +1,7 @@
-import {Component, OnInit} from '@angular/core';
-import {FirebaseService} from '../services/firebase.service';
+import { Component, OnInit } from '@angular/core';
+import { FirebaseService } from '../services/firebase.service';
+
+import { QrComponent } from '../qr/qr.component';
 
 @Component({
   selector: 'app-overview',
@@ -14,7 +16,7 @@ export class OverviewComponent implements OnInit {
   overviewArray = [];
   showDeleteMessage: boolean;
   searchText: string = '';
-
+  hide;
   ngOnInit() {
     console.log('overview');
     this.firebaseservice.getOverview().subscribe(
@@ -39,13 +41,17 @@ export class OverviewComponent implements OnInit {
   }
 
   filterCondition(detail) {
-    if (detail.mobile.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1) {
-      return detail.mobile.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1;
-    } else if (detail.fullName.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1) {
-      return detail.fullName.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1;
+    if (detail.name.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1) {
+      return detail.name.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1;
+    } else if (detail.description.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1) {
+      return detail.description.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1;
     } else if (detail.email.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1) {
       return detail.email.toLowerCase().indexOf(this.searchText.toLowerCase()) != -1;
     }
+
   }
 
+  loadQr() {
+    this.hide = true;
+  }
 }

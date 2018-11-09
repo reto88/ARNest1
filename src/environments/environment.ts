@@ -11,7 +11,8 @@ export const environment = {
     projectId: "dimension-e9ab9",
     storageBucket: "dimension-e9ab9.appspot.com",
     messagingSenderId: "697801507581"
-  }
+  },
+  baseUrl: ' https://bfhv00-73ca4.firebaseapp.com/scan/'
 };
 
 /*
@@ -21,3 +22,6 @@ export const environment = {
  * because it will have a performance impact when errors are thrown
  */
 // import 'zone.js/dist/zone-error';  // Included with Angular CLI.
+
+
+

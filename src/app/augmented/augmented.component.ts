@@ -1,8 +1,9 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
-import {QrCodeReadService} from '../services/qr-code-read.service';
+import { Component, OnInit, AfterViewInit,OnDestroy } from '@angular/core';
+import { QrCodeReadService } from '../services/qr-code-read.service';
 import jsQR from 'jsqr';
-import {FirebaseService} from '../services/firebase.service';
-import {RealtimeService} from '../services/realtime.service';
+import { FirebaseService } from '../services/firebase.service';
+import { RealtimeService } from '../services/realtime.service';
+import { ActivatedRoute } from '../../../node_modules/@angular/router';
 
 @Component({
   selector: 'app-augmented',
@@ -15,29 +16,91 @@ export class AugmentedComponent implements OnInit, OnDestroy {
   actualQRCode = '-';
   isSub;
   load;
+  load2;
   isloading = false;
   qrCodeOld: string;
-
-  constructor(private qrCodeRead: QrCodeReadService, private firebase: FirebaseService, private realtimeservice: RealtimeService) {
+  id;
+  constructor(private qrCodeRead: QrCodeReadService, private firebase: FirebaseService, private realtimeservice: RealtimeService, private route: ActivatedRoute) {
   }
 
   ngOnInit() {
-    this.firebase.loadNavItems()
-    // clone the data object, using its known Config shape
-      .subscribe((data) => {
-        this.load = data;
-        console.log(JSON.stringify(this.load));
-        this.realtimeservice.getData(this.load).subscribe(
-          data2 => {
-            // important to close subscription on destroy
-            this.isSub = true;
-            this.load = data2;
+    this.route.paramMap.subscribe(paramMap => {
+      this.id = paramMap.get('firebaseId');
+      console.log('id!' + this.id);
+
+
+      if (this.id !== null) {
+        console.log('id!' + this.id);
+        this.firebase.getObject2(this.id).subscribe((data) => {
+          this.load = data["liveObjects"];
+
+          console.log(JSON.stringify(this.load) + 'length' + this.load.length);
+          if (this.load.length >= 1) {
+            this.isloading = true;
+            this.realtimeservice.getData(this.load).subscribe(
+              data2 => {
+                // important to close subscription on destroy
+                this.isSub = true;
+                this.load = data2;
+                console.log('isloadedasasasa????????' + this.load + ' ' + this.isloading);
+              });
           }
-        );
-      });
+          else {
+            console.log('noID');
+          }
+        });
+
+      }
+      
+    });
 
     this.augmented();
   }
+  /*  this.firebase.getObject2('-LQnZKErPRyWBch5Ltpb').subscribe((data) => {
+      //  this.isloading = true;
+      this.load2 = data;
+      let livevalueobject = this.load2['liveObjects'];
+      console.log('firebaseload!!!!as!!!!!' + JSON.stringify(this.load2['liveObjects']));
+      this.realtimeservice.getData(livevalueobject).subscribe(
+        data2 => {
+          this.load = data2;
+ 
+          // important to close subscription on destroy
+          this.isSub = true;
+          this.load = data2;
+ 
+        }
+      );
+    }); */
+
+  /*  this.firebase.getObject2('-LQnZKErPRyWBch5Ltpb')
+      // clone the data object, using its known Config shape
+      .subscribe((data) => {
+        this.load = data['liveObjects'];
+        this.isloading = true;
+        console.log(JSON.stringify(this.load)+'length'+this.load.length);
+        if (this.load.length>=1){
+          this.realtimeservice.getData(this.load).subscribe(
+            data2 => {
+              // important to close subscription on destroy
+              this.isSub = true;
+              this.load = data2;
+              console.log('isloadedasasasa????????' + this.load + ' ' + this.isloading)
+            } );
+        }
+      }); */
+  /*   this.realtimeservice.getData(this.load).subscribe(
+       data2 => {
+         // important to close subscription on destroy
+         this.isSub = true;
+         this.load = data2;
+         console.log('isloadedasasasa????????' + this.load + ' ' + this.isloading)
+       }
+     ); */
+
+
+
+
 
   // make a reload to close webcam
   goHomeAndReload() {
@@ -71,12 +134,31 @@ export class AugmentedComponent implements OnInit, OnDestroy {
         if (qrCode !== undefined) {
           that.actualQRCode = qrCode;
 
-          if (that.actualQRCode === this.qrCodeOld) {
+          if (that.actualQRCode === that.qrCodeOld) {
             //qrCodeOld = that.actualQRCode;
-            console.log('gleich OLD' + this.qrCodeOld + 'actuael' + that.actualQRCode);
+         //   console.log('gleich OLD' + that.qrCodeOld + 'actuael' + that.actualQRCode);
             that.isloading = true;
-          } else if (that.actualQRCode !== this.qrCodeOld) {
-            this.qrCodeOld = that.actualQRCode;
+          } else if (that.actualQRCode !== that.qrCodeOld) {
+           // console.log('ungleich OLD' + that.qrCodeOld + 'actuael' + that.actualQRCode);
+            that.firebase.getObject2(that.actualQRCode).subscribe((data) => {
+              that.load = data["liveObjects"];
+    
+              console.log(JSON.stringify(that.load) + 'length' + that.load.length);
+              if (that.load.length >= 1) {
+                that.isloading = true;
+                that.realtimeservice.getData(that.load).subscribe(
+                  data2 => {
+                    // important to close subscription on destroy
+                    that.isSub = true;
+                    that.load = data2;
+                  //  console.log('isloadedasasasa????????' + that.load + ' ' + that.isloading);
+                  });
+              }
+              else {
+                console.log('noID');
+              }
+            });
+            that.qrCodeOld = that.actualQRCode;
             that.isloading = false;
             console.log('ungleich' + this.qrCodeOld + this.isloading);
           }

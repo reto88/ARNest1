@@ -5,6 +5,7 @@ import {AugmentedComponent} from './augmented/augmented.component';
 import {HomeComponent} from './home/home.component';
 import {CreateComponent} from './create/create.component';
 import {DimensionComponent} from './dimension/dimension.component';
+import { QrComponent } from './qr/qr.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -12,7 +13,9 @@ const routes: Routes = [
   {path: 'augmented', component: AugmentedComponent },
   {path: 'home', component: HomeComponent },
   {path: 'create', component: CreateComponent },
-  {path: 'dimension', component: DimensionComponent }
+  {path: 'dimension', component: DimensionComponent },
+  {path: 'qr', component: QrComponent},
+  {path: 'qr/:firebaseId', component: QrComponent}
 
 ];
 @NgModule({

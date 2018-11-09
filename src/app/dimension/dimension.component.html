@@ -37,12 +37,15 @@
       form {{this.firebaseservice.form.value|json}}
   </div>
   <div class="col-md-2">
-
+      <div class="col-md-2">
+    <button class="btn btn-outline-info" (click)="addToForm()">ADD</button>
+    <button class="btn btn-outline-info" [routerLink]="['/create']">BACK</button>
+  </div>
     <div class="alert alert-dismissible alert-success" *ngFor="let select of selectedDimension">
       <button type="button" class="close" data-dismiss="alert" (click)="rowDisSelected(select)">&times;</button>
       <strong>Well done!</strong> {{select.aks}}
     </div>
-    <button class="btn btn-outline-info" (click)="addToForm()">ADD</button>
+
   </div>
 
 

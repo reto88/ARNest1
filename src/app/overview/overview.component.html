@@ -7,20 +7,27 @@
 <table class="table table-sm">
   <thead>
   <th>key</th>
-  <th>Full Name</th>
-  <th>mobile</th>
+  <th>Name</th>
+  <th>Description</th>
   <th>email</th>
+  <th>created</th>
   </thead>
   <ng-container *ngFor="let detail of overviewArray">
     <tr class="table-dark" *ngIf="filterCondition(detail)">
       <td>{{detail.$key}}</td>
-      <td>{{detail.fullName}}</td>
-      <td>{{detail.mobile}}</td>
+      <td>{{detail.name}}</td>
+      <td>{{detail.description}}</td>
       <td>{{detail.email}}</td>
+      <td>{{detail.created| date:'dd.MM.yyyy HH:mm:ss'}}</td>
       <td>
         <button class="btn btn-outline-info" (click)="firebaseservice.edit(detail)">EDIT</button>
+        
         <button class="btn btn-outline-danger" (click)="onDelete(detail.$key)">DELETE</button>
       </td>
+
+      <td>
+         
+        <button class="btn btn-outline-info" [routerLink]="['/qr',detail.$key]">QR</button></td>
     </tr>
   </ng-container>
 </table>

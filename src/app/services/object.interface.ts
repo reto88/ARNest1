@@ -1,6 +1,8 @@
 export interface LiveObjects {
   aks: string;
-  _numericId: string;
+  numericId: string;
+  timestamp:string;
   unit: string;
+  value: number;
   description: string;
 }

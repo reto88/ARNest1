@@ -44,7 +44,7 @@ export class RealtimeService {
       // init the subscribted values with numericId
       this.connection.invoke('JoinNumericIdGroup', _numericId).then((vl: ICurrentDataItem[]) => {
         const initObjectArr = this.mapReceivedRtValue(vl, this.receivedObjectArray);
-     //   console.log(JSON.stringify(initObjectArr)+'objecarr');
+     //  console.log(JSON.stringify(initObjectArr)+'objecarr');
       //  this.observer.next(initObjectArr);
       });
     });
@@ -74,13 +74,13 @@ export class RealtimeService {
     for (const receivedId of receivedRT) {
       const itemIndex = receivedRT.findIndex(item => item.numericId === receivedId.numericId);
       receivedRT[itemIndex] = receivedId;
-      //    console.log('LiveValuesUpdated' + JSON.stringify(liveValues));
+          console.log('LiveValuesUpdated' + JSON.stringify(liveValueObjectArrayMap));
     }
     // realtime array aufspliten index von objekt finden welcher mit empfangen numericid matched
     for (const receivedId of receivedRT) {
       const itemIndex = liveValueObjectArrayMap.findIndex(item => item.numericId === receivedId.numericId);
-      liveValueObjectArrayMap [itemIndex].value = receivedId.value; // werte ersetzen
-      liveValueObjectArrayMap [itemIndex].timestamp = receivedId.timestamp; // Zeitstempel ersetzen
+     liveValueObjectArrayMap[itemIndex].value = receivedId.value; // werte ersetzen
+      liveValueObjectArrayMap[itemIndex].timestamp = receivedId.timestamp; // Zeitstempel ersetzen
     }
     return liveValueObjectArrayMap;
   }
@@ -89,7 +89,7 @@ export class RealtimeService {
   stopConnection() {
     this.connection.stop().catch(function (err) {
     }).then(() => {
-        console.log(JSON.stringify(this.connection));
+     //   console.log(JSON.stringify(this.connection));
 
       }
     );
