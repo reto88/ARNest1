@@ -16,24 +16,25 @@ export class CreateComponent implements OnInit {
   showSuccessMessage: boolean;
   formControls = this.firebaseservice.form.controls;
   isloaded: boolean;
-  singleObject:any;
+  singleObject: any;
+
   ngOnInit() {
     this.isloaded = true;
     this.firebaseservice.getObject2('-LQeqi6i8MV5Xvu6vmRa').subscribe(
       data => {
-      
-        console.log('singleobject'+JSON.stringify(data));
-      }); 
- // let data= this.firebaseservice.getObject2('-LQeQBZTs7rcK7L49Ozb');
- //   setTimeout(function(){ console.log('singleobject'+data); }, 3000);
+
+        console.log('singleobject' + JSON.stringify(data));
+      });
+    // let data= this.firebaseservice.getObject2('-LQeQBZTs7rcK7L49Ozb');
+    //   setTimeout(function(){ console.log('singleobject'+data); }, 3000);
   }
 
   onSubmit() {
-    JSON.parse( JSON.stringify(this.firebaseservice.form.value ) )
+    JSON.parse(JSON.stringify(this.firebaseservice.form.value));
     this.submitted = true;
     if (this.firebaseservice.form.valid) {
       if (this.firebaseservice.form.get('$key').value == null) {
-        
+
         this.firebaseservice.insertObject(this.firebaseservice.form.value);
         console.log('object ' + JSON.stringify(this.firebaseservice.form.value));
       }
@@ -46,12 +47,12 @@ export class CreateComponent implements OnInit {
       this.firebaseservice.form.reset();
       const arr = <FormArray>this.firebaseservice.form.controls.liveObjects;
       arr.controls = [];
-      
-    //  const arr = <FormArray>this.firebaseservice.form.controls.liveObjects;
-    //  arr.controls = [];
+      (<FormArray> this.firebaseservice.form.controls['liveObjects']).push(arr);
+      //  const arr = <FormArray>this.firebaseservice.form.controls.liveObjects;
+      //  arr.controls = [];
     }
     console.log(this.formControls.name);
-   
+
   }
 
   get liveObjectForms() {

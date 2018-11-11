@@ -1,7 +1,7 @@
 <div class="content">
 <p>
 <li><a routerLink="../augmented" routerLinkActive="active">Augmented</a></li>
-<li><a routerLink="../create" routerLinkActive="active">Create</a></li>
+
 </p>
 <div *ngFor="let item of load">
   <li>{{item.aks}}</li>
@@ -9,5 +9,5 @@
   <li>{{item.value}}</li>
   <li>{{item.timestamp}}</li>
 </div>
-<button class="btn btn-outline-info" (click)="this.realtimeservice.unsubscribe()">unsub</button>
+<!-- <button class="btn btn-outline-info" (click)="this.realtimeservice.unsubscribe()">unsub</button> -->
 </div>

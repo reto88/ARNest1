@@ -3,5 +3,22 @@
   position: fixed;
   bottom: 10px;
   left: 25%;
+  width: 50%;
+}
+.info {
+  z-index: 3;
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
   width: 75%;
+  color:black;
+}
+.scan{
+  position: fixed;
+  bottom: 10px;
+  left: 50%;
+  width: 75%;
+  color:black;
+  z-index: 4;
+
 }

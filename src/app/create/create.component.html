@@ -3,7 +3,7 @@
     <div class="col-md-5">
       <form [formGroup]="this.firebaseservice.form" (ngSubmit)="onSubmit()">
         form {{this.firebaseservice.form.value|json}}
-      ascasc  {{data|async|json}}
+
         <input type="hidden" formControlName="$key">
         <div class="form-group">
           <label>Object Name</label>
@@ -22,6 +22,14 @@
           </div>
         </div>
         <div class="form-group">
+          <label>picturePath</label>
+          <input formControlName="picture" class="form-control"
+                 [ngClass]="{'is-invalid':submitted && formControls.picture.errors}">
+          <div class="invalid-feedback" *ngIf="submitted && formControls.picture.errors">
+            This field is required
+          </div>
+        </div>
+        <div class="form-group">
           <label>email</label>
           <input formControlName="email" class="form-control"
                  [ngClass]="{'is-invalid':submitted && formControls.email.errors}">
@@ -29,17 +37,17 @@
             This field is required
           </div>
         </div>
-       
-          <div class="form-group">
-              <label>Live Value Objects</label>
-              <input formControlArray="liveObjects" class="form-control"
-                     [ngClass]="{'is-invalid':submitted && formControls.liveObjects.errors}">
-                     <input type="add" class="btn btn-primary" [routerLink]="['/dimension']" value="add2">
+
+        <div class="form-group">
+          <label>Live Value Objects</label>
+          <input formControlArray="liveObjects" class="form-control"
+                 [ngClass]="{'is-invalid':submitted && formControls.liveObjects.errors}">
+          <input type="add" class="btn btn-primary" [routerLink]="['/dimension']" value="add2">
           LiveValue {{this.firebaseservice.form.value['liveObjects']|json}}
-              <div class="invalid-feedback" *ngIf="submitted && formControls.liveObjects.errors">
-                This field is required
-              </div>
-            </div>    
+          <div class="invalid-feedback" *ngIf="submitted && formControls.liveObjects.errors">
+            This field is required
+          </div>
+        </div>
 
         <div class="form-group">
           <input type="submit" class="btn btn-primary" value="submit">
@@ -47,12 +55,12 @@
       </form>
       <div class="alert alert-info" *ngIf="showSuccessMessage">
         successfully submitted.
-        
+
       </div>
     </div>
     <div class="col-md-7">
       <app-overview></app-overview>
     </div>
- 
+
   </div>
 </div>

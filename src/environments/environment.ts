@@ -12,7 +12,7 @@ export const environment = {
     storageBucket: "dimension-e9ab9.appspot.com",
     messagingSenderId: "697801507581"
   },
-  baseUrl: ' https://bfhv00-73ca4.firebaseapp.com/scan/'
+  baseUrl: 'https://nestar1-5a024.firebaseapp.com/augmented/'
 };
 
 /*

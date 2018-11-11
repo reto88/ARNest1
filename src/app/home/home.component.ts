@@ -20,12 +20,12 @@ export class HomeComponent implements OnInit, OnDestroy {
   getLive: any;
   isSub;
 
-  constructor(private firebase: FirebaseService, private realtimeservice: RealtimeService) {
+  constructor(private firebase: FirebaseService, public realtimeservice: RealtimeService) {
   }
 
   ngOnInit() {
     console.log('init');
-    this.firebase.loadNavItems()
+/*    this.firebase.loadNavItems()
     // clone the data object, using its known Config shape
       .subscribe((data) => {
         this.load = data;
@@ -33,23 +33,23 @@ export class HomeComponent implements OnInit, OnDestroy {
         this.realtimeservice.getData(this.load).subscribe(
           data2 => {
             // important to close subscription on destroy
-          
+
             this.isSub = true;
             this.load = data2;
-            console.log('isub!!!!!!!!!!!'+this.isSub+ this.load);
+            console.log('isub!!!!!!!!!!!' + this.isSub + this.load);
           }
         );
-      });
+      });*/
   }
 
   //  this.load = this.firebase.loadNavItems();
 
   ngOnDestroy() {
-    this.realtimeservice.unsubscribe();
+/*    this.realtimeservice.unsubscribe();
     if (this.isSub == true) {
       this.realtimeservice.unsubscribe();
       console.log('destroyed');
       this.isSub = false;
-    }
+    }*/
   }
 }

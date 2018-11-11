@@ -74,13 +74,14 @@ export class RealtimeService {
     for (const receivedId of receivedRT) {
       const itemIndex = receivedRT.findIndex(item => item.numericId === receivedId.numericId);
       receivedRT[itemIndex] = receivedId;
-          console.log('LiveValuesUpdated' + JSON.stringify(liveValueObjectArrayMap));
+     //     console.log('LiveValuesUpdated' + JSON.stringify(liveValueObjectArrayMap));
     }
     // realtime array aufspliten index von objekt finden welcher mit empfangen numericid matched
     for (const receivedId of receivedRT) {
       const itemIndex = liveValueObjectArrayMap.findIndex(item => item.numericId === receivedId.numericId);
      liveValueObjectArrayMap[itemIndex].value = receivedId.value; // werte ersetzen
       liveValueObjectArrayMap[itemIndex].timestamp = receivedId.timestamp; // Zeitstempel ersetzen
+   //   console.log('LiveValuesUpdated' + JSON.stringify(liveValueObjectArrayMap));
     }
     return liveValueObjectArrayMap;
   }
