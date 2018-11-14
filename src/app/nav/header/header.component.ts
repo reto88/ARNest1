@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   blockingPath;
   urlwithout;
   id;
-
+ isCollapsed = false;
   constructor(private router: Router, private route: ActivatedRoute) {
     router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {

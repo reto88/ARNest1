@@ -1,13 +1,26 @@
 <div class="content">
-<p>
-<li><a routerLink="../augmented" routerLinkActive="active">Augmented</a></li>
+  <p>
+    <li>
+      <a routerLink="../augmented" routerLinkActive="active">Augmented</a>
 
-</p>
-<div *ngFor="let item of load">
-  <li>{{item.aks}}</li>
-  <li>{{item.numericId}}</li>
-  <li>{{item.value}}</li>
-  <li>{{item.timestamp}}</li>
-</div>
-<!-- <button class="btn btn-outline-info" (click)="this.realtimeservice.unsubscribe()">unsub</button> -->
-</div>
+    </li>
+    <div class="row">
+      <div class="col-sm-3">
+        <div class="form-group">
+          <select class="selectpicker" multiple data-selected-text-format="count">
+            <option>Musasdaaaaaaatard</option>
+            <option>asdasd</option>
+            <option>Relish</option>
+          </select>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <select class="form-control" data-style="btn-default"
+  data-live-search="true" selectpicker multiple
+  data-selected-text-format="count>2"
+  data-collection-name="users"
+  ng-model="selectedUsers"
+  ng-options="user.name for user in users">
+</select>

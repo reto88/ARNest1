@@ -20,12 +20,12 @@ export class QrCodeReadService {
     if (qrCode && qrCode.data !== '' && qrCode !== null) {
 
       paragraph = qrCode.data;
-      const searchTerm = 'scan/';
+      const searchTerm = 'augmented/';
 
       const indexOfFirst = paragraph.indexOf(searchTerm);
       // id is everything after scan, scan is 5 length
       if (indexOfFirst !== 0) {
-        storedid = paragraph.substr(indexOfFirst + 5);
+        storedid = paragraph.substr(indexOfFirst + searchTerm.length);
         id = storedid;
 
       } else {

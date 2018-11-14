@@ -1,9 +1,11 @@
-import {Component, OnInit, AfterViewInit, OnDestroy} from '@angular/core';
-import {QrCodeReadService} from '../services/qr-code-read.service';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
+import { QrCodeReadService } from '../services/qr-code-read.service';
 import jsQR from 'jsqr';
-import {FirebaseService} from '../services/firebase.service';
-import {RealtimeService} from '../services/realtime.service';
-import {ActivatedRoute} from '../../../node_modules/@angular/router';
+import { FirebaseService } from '../services/firebase.service';
+import { RealtimeService } from '../services/realtime.service';
+import { ActivatedRoute } from '../../../node_modules/@angular/router';
+import { SelectControlValueAccessor } from '../../../node_modules/@angular/forms';
+import { clearModulesForTest } from '../../../node_modules/@angular/core/src/linker/ng_module_factory_loader';
 
 @Component({
   selector: 'app-augmented',
@@ -23,19 +25,24 @@ export class AugmentedComponent implements OnInit, OnDestroy {
   picture;
   down;
   sub1;
-
+  scanStatus = 'press Scan';
+  color = 'white';
   constructor(private qrCodeRead: QrCodeReadService, private firebase: FirebaseService, private realtimeservice: RealtimeService, private route: ActivatedRoute) {
   }
 
   scanStart(event) {
+    this.scanStatus = 'Scanning!!!';
     this.down = true;
-    console.log(event);
+ //   console.log(event);
   }
   scanStop(event) {
+    this.scanStatus = '-';
     this.down = false;
-    console.log(event);
+  //  console.log(event);
+  //
   }
   ngOnInit() {
+
     this.isSub = false;
     this.sub1 = false;
     this.route.paramMap.subscribe(paramMap => {
@@ -43,15 +50,24 @@ export class AugmentedComponent implements OnInit, OnDestroy {
       this.id = paramMap.get('firebaseId');
       console.log('id!' + this.id);
       this.actualQRCode = this.id;
-
+     
+ 
       if (this.id !== null) {
+       
         console.log('id!' + this.id);
         this.firebase.getObject2(this.id).subscribe((data) => {
+
           this.picture = data.picture;
           this.load = data['liveObjects'];
-
-          console.log(JSON.stringify(this.load) + 'length' + this.load.length + 'pic' + this.picture);
+          this.color = data.color;
+         
+          console.log('color'+this.color);
+          this.sub1 = true;
+          this.colorset(data.color);
           if (this.load.length >= 1) {
+
+
+            this.scanStatus = 'LOAD >1';
             this.isloading = true;
             this.realtimeservice.getData(this.load).subscribe(
               data2 => {
@@ -67,15 +83,34 @@ export class AugmentedComponent implements OnInit, OnDestroy {
           }
         });
 
+
+
       }
 
     });
 
+
     this.augmented();
 
   }
+  colorset(color) {
+    setTimeout( () => {
+    
+      var sceneEl = document.querySelector('a-scene');
+      var mytext1 = sceneEl.querySelector('.maintext');
+   
+      var mytext2 = sceneEl.querySelector('.maintext2');
+      console.log('mytextasdasdasd' + color);
+      mytext1.setAttribute('color', 'red');
+      mytext2.setAttribute('color', 'green');
+      var els = sceneEl.querySelectorAll('a-text');  //var els = sceneEl.querySelectorAll('.maintext');
+      for (var i = 0; i < els.length; i++) {
+        console.log(els[i].setAttribute('color', color));
+      }
+    }, 500);
 
-
+  }
+  
   /*  this.firebase.getObject2('-LQnZKErPRyWBch5Ltpb').subscribe((data) => {
       //  this.isloading = true;
       this.load2 = data;
@@ -151,36 +186,42 @@ export class AugmentedComponent implements OnInit, OnDestroy {
           canvasElement.height
         );
         if (that.down === true) {
-         // console.log('isSUB'+that.down);
+          // console.log('isSUB'+that.down);
           that.isloading = false;
-          if (that.sub1 === true) {
+          if (that.sub1 == true) {
             that.realtimeservice.unsubscribe();
-            setTimeout(function () {
-              //     console.log('timeout');
-            }, 2000);
+         /*   setTimeout(function () {
+              that.sub1 = false;
+                 console.log('timeout!!!!!!!!!!!!!!!!!!');
+            }, 500);*/
             //    console.log('isSUB');
             that.sub1 = false;
-
           }
           const qrCode = that.qrCodeRead.getCanvas2d(imageData);
-          if (qrCode !== undefined) {
+          if (qrCode !== undefined && !that.sub1 ) {
+            console.log('isSUB!!!!!!!!!!!!!!!!!!!!!!!!!')
             that.actualQRCode = qrCode;
-            //  console.log('QR' + that.actualQRCode);
+            console.log('QR' + that.actualQRCode);
             if (that.actualQRCode === that.qrCodeOld) {
               //qrCodeOld = that.actualQRCode;
               //   console.log('gleich' + that.qrCodeOld + 'actuael' + that.actualQRCode);
-             // that.isloading = true;
+              that.isloading = true;
+              that.down = false;
+              that.scanStatus = '';
             } else if (that.actualQRCode !== that.qrCodeOld) {
               that.isSub = true;
               that.sub1 = true;
               that.down = false;
+              that.scanStatus = '';
               //    console.log('asdasdasdas');
-              // console.log('ungleich OLD' + that.qrCodeOld + 'actuael' + that.actualQRCode);
+              
+              console.log('ungleich OLD' + that.qrCodeOld + 'actuael' + that.actualQRCode);
               that.firebase.getObject2(that.actualQRCode).subscribe((data) => {
                 that.picture = data.picture;
                 that.load = data['liveObjects'];
-
+                that.colorset(data.color);
                 console.log(JSON.stringify(data) + 'daata');
+               
                 if (that.load.length >= 1) {
                   //  that.realtimeservice.unsubscribe();
                   that.isloading = true;
@@ -192,14 +233,14 @@ export class AugmentedComponent implements OnInit, OnDestroy {
                       that.isloading = true;
                       //  console.log('isloadedasasasa????????' + that.load + ' ' + that.isloading);
                     });
-                  that.isloading = true;
+                  //  that.isloading = true;
                 }
                 else {
                   //    console.log('noID');
                 }
               });
               that.qrCodeOld = that.actualQRCode;
-              that.isloading = true;
+              //   that.isloading = true;
 
             }
           }

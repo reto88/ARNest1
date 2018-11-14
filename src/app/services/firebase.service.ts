@@ -1,10 +1,10 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {FormControl, FormGroup, Validators, FormArray, FormBuilder} from '@angular/forms';
-import {AngularFireDatabase, AngularFireList, AngularFireObject} from '@angular/fire/database';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { FormControl, FormGroup, Validators, FormArray, FormBuilder } from '@angular/forms';
+import { AngularFireDatabase, AngularFireList, AngularFireObject } from '@angular/fire/database';
 
-import {Observable} from 'rxjs';
-import {map, take} from 'rxjs/operators';
+import { Observable } from 'rxjs';
+import { map, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,7 +13,7 @@ export class FirebaseService {
 
   constructor(private http: HttpClient, private firebase: AngularFireDatabase, private fb: FormBuilder) {
   }
-
+  objectList: AngularFireList<any>;
   surveys2: AngularFireList<any>;
   DimensionList: AngularFireList<any>;
   overviewList: AngularFireList<any>;
@@ -24,7 +24,7 @@ export class FirebaseService {
     $key: new FormControl(null),
     name: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    picture:new FormControl('', Validators.required),
+    picture: new FormControl('', Validators.required),
     email: new FormControl('', Validators.required),
     created: new FormControl(''),
     liveObjects: new FormArray([], Validators.required)
@@ -55,19 +55,48 @@ export class FirebaseService {
     this.overviewList = this.firebase.list('overview');
     return this.overviewList.snapshotChanges();
   }
-
+  getObjectList() {
+    this.objectList = this.firebase.list('object2');
+    return this.objectList.snapshotChanges();
+  }
 
   getObject2(firebaseId: string): Observable<any> {
     return this.item = this.firebase.object('overview/' + firebaseId).valueChanges();
   }
 
+  getObjectbyId(firebaseId: string): Observable<any> {
+    return this.item = this.firebase.object('overview/' + firebaseId).valueChanges();
+  }
 
+
+  postObject(object) {
+    console.log('objekct' + object);
+    this.objectList.push({
+      class_name: object.class_name,
+      students: object.students
+    });
+
+  }
+
+  putObject(object) {
+    this.objectList.update(object.$key,
+      {
+        class_name: object.class_name,
+        students: object.students
+      });
+  }
+
+  deleteObject($key: string) {
+    this.objectList.remove($key);
+  }
+  
   getDimension() {
     this.DimensionList = this.firebase.list('dimension');
     return this.DimensionList.snapshotChanges();
   }
 
   insertObject(object) {
+    console.log('objekct' + object);
     let datetime = new Date();
     console.log('date' + datetime);
     this.overviewList.push({
@@ -81,7 +110,6 @@ export class FirebaseService {
     });
 
     //  location: object.location
-
   }
 
   edit(detail) {
@@ -122,7 +150,7 @@ export class FirebaseService {
           value: new FormControl(detail.liveObjects[i].value),
           timestamp: new FormControl(detail.liveObjects[i].timestamp),
         });
-        (<FormArray> this.form.controls['liveObjects']).push(liveobject);
+        (<FormArray>this.form.controls['liveObjects']).push(liveobject);
       }
     }
 

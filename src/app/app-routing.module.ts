@@ -6,6 +6,7 @@ import {HomeComponent} from './home/home.component';
 import {CreateComponent} from './create/create.component';
 import {DimensionComponent} from './dimension/dimension.component';
 import { QrComponent } from './qr/qr.component';
+import { EditComponent } from './edit/edit.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -15,7 +16,9 @@ const routes: Routes = [
   {path: 'create', component: CreateComponent },
   {path: 'dimension', component: DimensionComponent },
   {path: 'qr', component: QrComponent},
-  {path: 'qr/:firebaseId', component: QrComponent}
+  {path: 'qr/:firebaseId', component: QrComponent},
+  {path: 'edit/:firebaseId', component: EditComponent},
+  {path: 'edit', component: EditComponent},
 
 ];
 @NgModule({

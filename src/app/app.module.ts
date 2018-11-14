@@ -18,7 +18,8 @@ import { DimensionComponent } from './dimension/dimension.component';
 import { HeaderComponent } from './nav/header/header.component';
 import { QrComponent } from './qr/qr.component';
 import { QRCodeModule } from 'angularx-qrcode';
-
+import { EditComponent } from './edit/edit.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { QRCodeModule } from 'angularx-qrcode';
     DimensionComponent,
     HeaderComponent,
     QrComponent,
+    EditComponent,
 
 
   ],
@@ -43,7 +45,8 @@ import { QRCodeModule } from 'angularx-qrcode';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireDatabaseModule, // imports firebase/database, only needed for database features
-    QRCodeModule
+    QRCodeModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent],

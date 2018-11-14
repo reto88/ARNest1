@@ -1,0 +1,59 @@
+<form [formGroup]="classroomForm" (ngSubmit)="onSubmit()">
+  form {{classroomForm.value|json}}
+  <div class="form-group">
+    <label>Classroom Name</label>
+    <input formControlName="class_name" class="form-control">
+    <div class="invalid-feedback" *ngIf="submitted && !classroomForm.controls.class_name.errors">
+      This field is required
+    </div>
+
+  </div>
+
+  <div class="form-group">
+
+    <label>Students</label>
+
+    <div *ngIf="hasStudents" formArrayName="students">
+      <div *ngFor="let student of students.controls; let i = index">
+        <div formGroupName="{{i}}">
+          <input formControlName="student_name">
+          <button class="btn btn-outline-info" (click)="deleteStudent(students.controls,i)">-</button>
+          index {{i}}
+        </div>
+      </div>
+
+
+    </div>
+  </div>
+  <div class="form-group">
+    <input type="submit" class="btn btn-primary" [disabled]="!classroomForm.valid" value="submit">
+  </div>
+ 
+
+</form>
+<select class="selectpicker" multiple>
+  <option>Mustard</option>
+  <option>Ketchup</option>
+  <option>Relish</option>
+</select>
+
+<button class="btn btn-outline-info" (click)="addBlankStudent()" value="asdas">+</button>
+
+<table class="table table-sm">
+    <thead>
+      <th>key</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>edit</th>
+
+    </thead>
+    <ng-container *ngFor="let object of objectListArray">
+      <tr class="table-dark">
+        <td>{{object.$key}}</td>
+        <td>{{object.class_name}}</td>
+        <td>{{object.students}}</td>
+        <td><button class="btn btn-outline-info" (click)="editObject(object)">EDIT</button> </td>
+        <td><button class="btn btn-outline-info" (click)="deleteObject(object)">DELETE</button> </td>
+      </tr>
+    </ng-container>
+  </table>
