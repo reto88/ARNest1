@@ -1,18 +1,11 @@
- <!--<a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
+<!--<a-scene embedded arjs='sourceType: webcam; debugUIEnabled: false;'>
   <!-- <a-scene embedded artoolkit='sourceType: webcam;'> -->
-  <!-- define a marker -->
-  <a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
-  <a-marker type='barcode' value='20'>
-    <a-box position='0 0.5 0' material='opacity: 0.5; side: double;color:pink;'>
-      <a-torus-knot radius='0.26' radius-tubular='0.05'>
-        <a-animation attribute="rotation" to="360 0 0" dur="5000" easing='linear' repeat="indefinite"></a-animation>
-      </a-torus-knot>
-    </a-box>
-  </a-marker>
+<!-- define a marker -->
+<a-scene embedded arjs='sourceType: webcam; detectionMode: mono_and_matrix; matrixCodeType: 3x3;'>
 
-  
+
+
   <a-marker preset='hiro'>
-
     <!-- define the object which gonna be put on this marker  -->
     <a-sphere src="https://raw.githubusercontent.com/aframevr/sample-assets/master/assets/images/space/earth_atmos_4096.jpg"
       radius="0.5" segments-height="53" position="0 0.3 0.0" *ngIf="!isloading">
@@ -20,7 +13,7 @@
       </a-animation>
     </a-sphere>
 
-  
+
 
 
     <a-entity *ngIf="isloading">
@@ -34,23 +27,23 @@
     <a-entity *ngIf="isloading" background="color: red">  "-0.1 0.7 -1.2"
     <a-plane position="-0.1 0.7 -0.2" rotation="-90 0 0" width="2.2" height="1.2" material="color: #EF2D5E; transparent:true; opacity:0.5"></a-plane> -->
 
-      <a-text class="maintext"  align="right" [attr.value]=" load[0].description+': '" rotation="-90 00 0" position="0 0.8 -0.7" font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"
-        width="2"></a-text>
-   <!--     <a-entity geometry="primitive: plane; width: 3; height: 0.2" material="color: #222" position="0 0.6 -0.7" rotation="-90 00 0"></a-entity> -->
+      <a-text class="maintext" align="right" [attr.value]=" load[0].description+': '" rotation="-90 00 0" position="0 0.8 -0.7"
+        font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt" width="2"></a-text>
+      <!--     <a-entity geometry="primitive: plane; width: 3; height: 0.2" material="color: #222" position="0 0.6 -0.7" rotation="-90 00 0"></a-entity> -->
 
-      <a-text class="maintext"  align="left" baseline="center" [attr.value]="load[0].value.toFixed(2)+' '+ load[0].unit " rotation="-90 00 0"
+      <a-text class="maintext" align="left" baseline="center" [attr.value]="load[0].value.toFixed(2)+' '+ load[0].unit " rotation="-90 00 0"
         position="0 0.8 -0.7" font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-text>
 
-      <a-text class="maintext2"   position="0 0.6 -0.7" align="right" baseline="center" [attr.value]=" load[1].description+': '" rotation="-90 00 0" position="0 0.8 -0.4"
-        font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt" width="2"></a-text>
+      <a-text class="maintext2" position="0 0.6 -0.7" align="right" baseline="center" [attr.value]=" load[1].description+': '"
+        rotation="-90 00 0" position="0 0.8 -0.4" font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt" width="2"></a-text>
 
-    <!--     <a-text color="white" geometry="primitive: plane; width: 3; height: auto" material="color: #333" align="left" baseline="center" [attr.value]="load[1].value.toFixed(2)+' '+ load[1].unit " rotation="-90 00 0"
+      <!--     <a-text color="white" geometry="primitive: plane; width: 3; height: auto" material="color: #333" align="left" baseline="center" [attr.value]="load[1].value.toFixed(2)+' '+ load[1].unit " rotation="-90 00 0"
         position="0 0.8 -0.4" font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-text> -->
 
-      <a-text color="white" material="color: #333" align="left" baseline="center" [attr.value]="load[1].value.toFixed(2)+' '+ load[1].unit " rotation="-90 00 0"
-        position="0 0.8 -0.4" font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-text>
-        
-      <a-text class="maintext"   align="right" baseline="center" [attr.value]=" load[2].description+': '" rotation="-90 00 0" position="0 0.8 -0.1"
+      <a-text color="white" material="color: #333" align="left" baseline="center" [attr.value]="load[1].value.toFixed(2)+' '+ load[1].unit "
+        rotation="-90 00 0" position="0 0.8 -0.4" font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-text>
+
+      <a-text class="maintext" align="right" baseline="center" [attr.value]=" load[2].description+': '" rotation="-90 00 0" position="0 0.8 -0.1"
         font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt" width="2"></a-text>
 
       <a-text color="white" align="left" baseline="center" [attr.value]="load[2].value.toFixed(2)+' '+ load[2].unit " rotation="-90 00 0"
@@ -64,6 +57,23 @@
 
     </a-entity>
   </a-marker>
+  <a-entity *ngIf="isloading">
+    <a-marker type='barcode' value='20'>
+      <a-text class="maintext" align="right" baseline="center" [attr.value]=" load[2].description+': '" rotation="-90 00 0" position="0 0.8 -0.1"
+      font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt" width="2"></a-text>
+
+    <a-text color="white" align="left" baseline="center" [attr.value]="load[2].value.toFixed(2)+' '+ load[2].unit " rotation="-90 00 0"
+      position="0 0.8 -0.1" font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-text>
+    </a-marker>
+    <a-marker type='barcode' value='30'>
+      <a-text color="white" align="right" baseline="center" [attr.value]=" load[3].description+': '" rotation="-90 00 0" position="0 0.8 0.2"
+        font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt" width="2"></a-text>
+
+      <a-text color="white" align="left" baseline="center" [attr.value]="load[3].value.toFixed(2)+' '+ load[3].unit  " rotation="-90 00 0"
+        position="0 0.8 0.2" font="https://cdn.aframe.io/fonts/DejaVu-sdf.fnt"></a-text>
+
+    </a-marker>
+  </a-entity>
   <!-- define a simple camera -->
   <a-entity camera></a-entity>
 
@@ -91,15 +101,15 @@
 
 
 
-  <div class="panel panel backButton">
-    
-     {{actualQRCode}}  {{scanStatus}} sub:{{sub1}}  
-    <div class="panel-body">
-        <button class="alert alert-info float-left" (click)="goHomeAndReload()">back</button>
-       
-        <button *ngIf="!down" class="alert alert-info float-right" (click)="scanStart($event)">SCAN</button>
-        <button *ngIf="down" class="alert alert-info float-right" (click)="scanStop($event)">STOP</button>
-      
-      
-    </div>
+<div class="panel panel backButton">
+
+  {{actualQRCode}} {{scanStatus}} sub:{{sub1}}
+  <div class="panel-body">
+    <button class="alert alert-info float-left" (click)="goHomeAndReload()">back</button>
+
+    <button *ngIf="!down" class="alert alert-info float-right" (click)="scanStart($event)">SCAN</button>
+    <button *ngIf="down" class="alert alert-info float-right" (click)="scanStop($event)">STOP</button>
+
+
   </div>
+</div>

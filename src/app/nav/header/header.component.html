@@ -1,19 +1,18 @@
-<div class="header" *ngIf="isVisible == true">
+<div class="header" *ngIf="isVisible == true" >
   <nav class="navbar navbar-expand-md navbar-light bg-faded">
     <button class="navbar-toggler navbar-toggler-right" type="button" (click)="isNavbarCollapsed = !isNavbarCollapsed" data-toggle="collapse"
       data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <a class="navbar-brand" href="#">Navbar</a>
+    <a class="navbar-brand"  routerLink="" routerLinkActive="active">My Website</a>
     <div [ngbCollapse]="isNavbarCollapsed" class="navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
+      <ul class="navbar-nav mr-auto" (click)="isNavbarCollapsed = !isNavbarCollapsed">
         <li class="nav-item ">
-          <a class="nav-link" routerLink="../dimension" routerLinkActive="active">Dimension </a>
+          <a class="nav-link" routerLink="../dimension" routerLinkActive="active">Dimension  </a>
         </li>
         <li class="nav-item">
           <a class="nav-link" routerLink="../augmented" routerLinkActive="active">Augmented</a>
         </li>
-
         <li class="nav-item">
           <a class="nav-link" routerLink="../create" routerLinkActive="active">Create</a>
         </li>
@@ -24,4 +23,6 @@
     
     </div>
   </nav>
+  
+
 </div>

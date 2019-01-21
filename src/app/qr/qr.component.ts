@@ -17,9 +17,7 @@ export class QrComponent implements OnInit {
   ngOnInit() {
     
     console.log('myqrcode'+ this.myQrCode);
-    
     this.id = this.route.snapshot.paramMap.get('firebaseId');
- 
     this.myQrCode = environment.baseUrl + this.id;
   
   }
